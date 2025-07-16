@@ -15,11 +15,24 @@
     url: "{{ros_apt_source_api}}"
     method: GET
     return_content: yes
-  register: ros_apt_source_version
+  register: ros_apt_source_api_response
+  
+- name: Set ROS APT source version
+  set_fact:
+    ros_apt_source_version: "{{ ros_apt_source_api_response.json.tag_name }}"
+
+- name: Debug URL components
+  debug:
+    msg:
+      - "Base URL: {{ ros_apt_source_url }}"
+      - "Version: {{ ros_apt_source_version }}"
+      - "Distribution: {{ ansible_distribution_release }}"
+      - "Full URL: {{ ros_apt_source_url }}/{{ ros_apt_source_version }}/ros2-apt-source_{{ ros_apt_source_version }}.{{ ansible_distribution_release }}_all.deb"
+
 
 - name: Download ROS2 APT source package
   get_url:
-    url: "{{ ros_apt_source_url }}/{{ ros_apt_source_version.stdout }}/ros2-apt-source_{{ ros_apt_source_version.stdout }}.{{ ansible_distribution_release }}_all.deb"
+    url: "{{ ros_apt_source_url }}/{{ ros_apt_source_version }}/ros2-apt-source_{{ ros_apt_source_version }}.{{ ansible_distribution_release }}_all.deb"
     dest: "/tmp/ros2-apt-source.deb"
 
 - name: Install ROS2 APT source package

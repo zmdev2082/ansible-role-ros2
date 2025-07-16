@@ -6,7 +6,7 @@ ros_apt_source_api: https://api.github.com/repos/ros-infrastructure/ros-apt-sour
 ros_apt_source_url: https://github.com/ros-infrastructure/ros-apt-source/releases/download
 
 # Options: jazzy (LTS); rolling
-ros2_distribution: jazzy
+ROS_DISTRO: jazzy
 
 # Options: desktop (recommended); ros-base (bare bones)
 ros2_configuration: desktop
