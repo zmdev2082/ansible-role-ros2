@@ -12,7 +12,7 @@
 
 - name: Get latest ROS APT source version
   uri:
-    url: "https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest"
+    url: "{{ros_apt_source_api}}"
     method: GET
     return_content: yes
   register: ros_apt_source_version
