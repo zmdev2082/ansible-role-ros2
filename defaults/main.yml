@@ -14,8 +14,9 @@ ros2_configuration: desktop
 # Gazebo version to install
 GZ_VERSION: harmonic
 
-# Which RMW DDS implementation to use
-RMW_IMPLEMENTATION: rmw-cyclonedds-cpp
+# Which RMW DDS implementation to use.
+# Options: rmw_cyclonedds_cpp (default); rmw_fastrtps_cpp
+RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
 
 
 # Default username and group for catkin_ws installation
