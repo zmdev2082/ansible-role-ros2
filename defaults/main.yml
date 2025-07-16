@@ -15,7 +15,7 @@ ros2_configuration: desktop
 GZ_VERSION: harmonic
 
 # Which RMW DDS implementation to use
-RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
+RMW_IMPLEMENTATION: rmw-cyclonedds-cpp
 
 
 # Default username and group for catkin_ws installation
@@ -33,7 +33,6 @@ ros_system_wide: true  # Enable system-wide configuration
 
 # List of ROS packages to be installed without ros-<distro> prefix
 ros2_packages:
-    - rmw-cyclonedds-cpp
     - ros-gz
     - turtlesim
 
