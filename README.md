@@ -1,14 +1,12 @@
 ROS 2 (Robot Operating System)
 =========
 
-[![Build Status](https://travis-ci.org/rarrais/ansible-role-ros2.svg?branch=master)](https://travis-ci.org/rarrais/ansible-role-ros2)
-
-An Ansible Role that installs ROS 2 (Robot Operating System) on Ubuntu. 🤖
+Ansible Role to install ROS2 Jazzy Jellyfish on Ubuntu Noble Numbat 24.04
 
 Requirements
 ------------
 
-None.
+Ubuntu 24.04
 
 
 Role Variables
@@ -19,14 +17,21 @@ Available variables are listed below, along with default values (see `defaults/m
 
   ```yaml
   # Retrieved from ROS2 installation instructions
-  ros2_gpg_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
-  ros2_repository_url: http://packages.ros.org/ros2/ubuntu
+  ros_apt_source_api: https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest
+  ros_apt_source_url: https://github.com/ros-infrastructure/ros-apt-source/releases/download
 
-  # Options: bouncy; crystal; dashing (LTS); eloquent; foxy (LTS)
-  ros2_distribution: foxy
+  # Options: jazzy (LTS); rolling
+  ros2_distribution: jazzy
 
   # Options: desktop (recommended); ros-base (bare bones)
   ros2_configuration: desktop
+
+  # Gazebo version to install
+  GZ_VERSION: harmonic
+
+  # Which RMW DDS implementation to use
+  RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
+
 
   # Default username and group for catkin_ws installation
   ros2_user:
@@ -49,7 +54,7 @@ Dependencies
 
 None.
 
-Example Playbook
+<!-- Example Playbook
 ----------------
 
 Example to install ROS desktop-full configuration with turtlesim on the host system with a custom (existing) username:
@@ -67,7 +72,7 @@ Example to install ROS desktop-full configuration with turtlesim on the host sys
       - turtlesim
   roles:
     - rarrais.ros2
-```
+``` -->
 
 License
 -------
@@ -77,4 +82,4 @@ MIT
 Author Information
 ------------------
 
-This role was created in 2019 by [Rafael Arrais](https://github.com/rarrais).
+This role was created in 2025 by [zmdev2082](https://github.com/zmdev2082).

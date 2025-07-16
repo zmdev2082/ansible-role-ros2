@@ -1,6 +1,6 @@
 galaxy_info:
   role_name: ros2
-  author: zmil2082dev
+  author: zmdev2082
   description: Ansible Role to install ROS2 Jazzy Jellyfish on Ubuntu Noble Numbat 24.04
   company: USYD
   license: MIT
