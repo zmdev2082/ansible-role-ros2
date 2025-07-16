@@ -1,0 +1,19 @@
+---
+- name: Install Cyclonedds RMW implementation
+  apt:
+    name: "ros-{{ ROS_DISTRO }}-{{ RMW_IMPLEMENTATION }}"
+    state: present
+  become: true
+  when: RMW_IMPLEMENTATION == 'rmw_cyclonedds_cpp'
+
+- name: Create system-wide ROS2 environment setup
+  copy:
+    dest: /etc/profile.d/ros2_setup.sh
+    mode: '0644'
+    content: |
+      #!/bin/bash
+
+      # Set DDS implementation
+      export RMW_IMPLEMENTATION={{ RMW_IMPLEMENTATION }}
+      
+  become: true

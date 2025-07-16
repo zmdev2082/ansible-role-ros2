@@ -50,23 +50,7 @@
     packages:
       - "{{ 'ros-' + ROS_DISTRO + '-' + ros2_configuration }}"
 
-- name: Install Cyclonedds RMW implementation
-  apt:
-    name: "ros-{{ ROS_DISTRO }}-{{ RMW_IMPLEMENTATION }}"
-    state: present
-  become: true
-  when: RMW_IMPLEMENTATION == 'rmw_cyclonedds_cpp'
 
-- name: Install development tools and ROS tools
-  apt:
-    name: "{{ packages }}"
-    state: present
-  become: true
-  vars:
-    packages:
-      - ros-dev-tools
-      - python3-colcon-common-extensions
-      - '~nros-{{ ROS_DISTRO }}-rqt*'
 
 # # echo "source /opt/ros/<distro>/setup.bash" >> ~/.bashrc
 # - name: Update .bashrc with /opt/ros/<ros_distribution>/setup.bash

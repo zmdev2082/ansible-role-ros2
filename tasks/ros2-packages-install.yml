@@ -1,6 +1,17 @@
 ---
 # Install ROS2 packages task
 
+- name: Install development tools and ROS tools
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - ros-dev-tools
+      - python3-colcon-common-extensions
+      - ros-{{ ROS_DISTRO }}-rqt*
+
 - name: Install ROS2 Packages
   apt:
     name: "{{ packages }}"

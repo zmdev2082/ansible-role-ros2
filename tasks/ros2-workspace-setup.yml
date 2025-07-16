@@ -1,23 +1,61 @@
 ---
-# ROS2 worskspace setup task
-
-- name: Create a ROS2 workspace
-  file:
-    dest: "/home/{{ ros2_user.name }}/{{ dev_ws }}/src"
-    state: directory
-    owner: "{{ ros2_user.name }}"
-    group: "{{ ros2_user.group }}"
-
-- name: Build the workspace with colon
-  shell: source /opt/ros/{{ ros2_distribution }}/setup.bash && colcon build
+- name: Initialize rosdep
+  shell: rosdep init
+  become: true
   args:
-    chdir: /home/{{ ros2_user.name }}/{{ dev_ws }}
-    executable: /bin/bash
-    creates: install/setup.bash
-    # become: yes
-  become_user: "{{ ros2_user.name }}"
+    creates: /etc/ros/rosdep/sources.list.d/20-default.list
 
-- name: Update .bashrc with install/setup.bash
-  lineinfile:
-    path: /home/{{ ros2_user.name }}/.bashrc
-    line: source /home/{{ ros2_user.name }}/{{ dev_ws }}/install/setup.bash
+- name: Update rosdep
+  shell: rosdep update
+  become: false
+
+- name: Create system-wide symlink to ROS2 environment
+  file:
+    src: /opt/ros/{{ ROS_DISTRO }}/setup.sh
+    dest: /etc/profile.d/10-ros2.sh
+    state: link
+  become: true
+  tags: [ros2, configure]
+
+
+
+# - name: Create a ROS2 workspace
+#   file:
+#     dest: "/home/{{ ros2_user.name }}/{{ dev_ws }}/src"
+#     state: directory
+#     owner: "{{ ros2_user.name }}"
+#     group: "{{ ros2_user.group }}"
+
+# - name: Build the workspace with colon
+#   shell: source /opt/ros/{{ ros2_distribution }}/setup.bash && colcon build
+#   args:
+#     chdir: /home/{{ ros2_user.name }}/{{ dev_ws }}
+#     executable: /bin/bash
+#     creates: install/setup.bash
+#     # become: yes
+#   become_user: "{{ ros2_user.name }}"
+
+# - name: Update .bashrc with install/setup.bash
+#   lineinfile:
+#     path: /home/{{ ros2_user.name }}/.bashrc
+#     line: source /home/{{ ros2_user.name }}/{{ dev_ws }}/install/setup.bash
+
+
+# - name: Create system-wide ROS2 environment setup
+#   copy:
+#     dest: /etc/profile.d/ros2_setup.sh
+#     mode: '0644'
+#     content: |
+#       #!/bin/bash
+#       # ROS2 system-wide environment configuration
+      
+#       # Source ROS2 setup
+#       if [ -f /opt/ros/{{ ros_version }}/setup.bash ]; then
+#         source /opt/ros/{{ ros_version }}/setup.bash
+#       fi
+      
+#       # Set DDS implementation
+#       export RMW_IMPLEMENTATION={{ ros_dds_implementation }}
+      
+  # become: true
+  # tags: [ros2, configure]

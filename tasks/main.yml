@@ -5,10 +5,14 @@
   import_tasks: ros2-install.yml
   tags: [ros2, install]
 
-# - name: ROS2 Workspace Setup
-#   include: ros2-workspace-setup.yml
-#   tags: ros2-workspace-setup
-
 - name: ROS2 Packages Install
   import_tasks: ros2-packages-install.yml
-  tags: [ros2, packages]
+  tags: [ros2, packages, install]
+
+- name: ROS2 Cyclonedds Install
+  import_tasks: ros2-cyclonedds-install.yml
+  tags: [ros2, rmw, cyclonedds, install]
+
+- name: ROS2 Workspace Setup
+  import_tasks: ros2-workspace-setup.yml
+  tags: [ros2, workspace, configure]
