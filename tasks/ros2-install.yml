@@ -52,13 +52,10 @@
 
 - name: Install Cyclonedds RMW implementation
   apt:
-    name: "{{ packages }}"
+    name: "ros-{{ ROS_DISTRO }}-{{ RMW_IMPLEMENTATION }}"
     state: present
   become: true
   when: RMW_IMPLEMENTATION == 'rmw_cyclonedds_cpp'
-  vars:
-    packages:
-      - rmw-cyclonedds-cpp
 
 - name: Install development tools and ROS tools
   apt:
