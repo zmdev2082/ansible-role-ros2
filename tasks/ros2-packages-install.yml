@@ -1,0 +1,13 @@
+---
+# Install ROS2 packages task
+
+- name: Install ROS2 Packages
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  become: true
+  vars:
+    packages: "{{ 'ros-' + ROS_DISTRO + '-' + item }}"
+  with_items: "{{ ros2_packages }}"
+  when: (ros2_packages is defined) and (ros2_packages is not none)

@@ -1,0 +1,79 @@
+---
+- name: Install dependencies for setting up sources
+  apt:
+    name: "{{ packages }}"
+    update_cache: yes
+    state: present
+  become: true
+  vars:
+    packages:
+    - wget
+    - software-properties-common
+
+- name: Get latest ROS APT source version
+  shell: wget -qO- https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}'
+  register: ros_apt_source_version
+  changed_when: false
+
+- name: Download ROS2 APT source package
+  get_url:
+    url: "https://github.com/ros-infrastructure/ros-apt-source/releases/download/{{ ros_apt_source_version.stdout }}/ros2-apt-source_{{ ros_apt_source_version.stdout }}.{{ ansible_distribution_release }}_all.deb"
+    dest: "/tmp/ros2-apt-source.deb"
+
+- name: Install ROS2 APT source package
+  apt:
+    deb: "/tmp/ros2-apt-source.deb"
+  become: true
+
+# sudo apt install ros-<distro>-ros-base
+- name: Install ROS 2 {{ ROS_DISTRO | capitalize }} Desktop
+  apt:
+    name: "{{ packages }}"
+    state: present
+    update_cache: yes
+  vars:
+    packages:
+      - "{{ 'ros-' + ROS_DISTRO + '-' + ros2_configuration }}"
+
+- name: Install Cyclonedds RMW implementation
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  when: RMW_IMPLEMENTATION == 'rmw_cyclonedds_cpp'
+  vars:
+    packages:
+      - rmw-cyclonedds-cpp
+
+- name: Install development tools and ROS tools
+  apt:
+    name: "{{ packages }}"
+    state: present
+  become: true
+  vars:
+    packages:
+      - ros-dev-tools
+      - python3-colcon-common-extensions
+      - '~nros-{{ ROS_DISTRO }}-rqt*'
+
+# # echo "source /opt/ros/<distro>/setup.bash" >> ~/.bashrc
+# - name: Update .bashrc with /opt/ros/<ros_distribution>/setup.bash
+#   lineinfile:
+#     path: /home/{{ ros2_user.name }}/.bashrc
+#     line: source /opt/ros/{{ ros2_distribution }}/setup.bash
+
+# # echo "export ROS_DOMAIN_ID=<your_domain_id>" >> ~/.bashrc
+# - name: Update .bashrc with ROS_DOMAIN_ID
+#   lineinfile:
+#     path: /home/{{ ros2_user.name }}/.bashrc
+#     line: export ROS_DOMAIN_ID={{ ros2_domain_id }}
+
+# # sudo apt install python3-argcomplete
+# - name: Install argcomplete (optional)
+#   apt:
+#     name: python3-argcomplete
+#   when: install_argcomplete
+
+# - name: Install colcon to build packages
+#   apt:
+#     name: python3-colcon-common-extensions

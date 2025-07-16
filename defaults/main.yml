@@ -1,0 +1,39 @@
+---
+# defaults file for ros2
+
+# Retrieved from ROS2 installation instructions
+ros2_gpg_key_url: https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc
+ros2_repository_url: http://packages.ros.org/ros2/ubuntu
+
+# Options: bouncy; crystal; dashing (LTS); eloquent; foxy (LTS)
+ROS_DISTRO: jazzy
+
+# Options: desktop (recommended); ros-base (bare bones)
+ros2_configuration: desktop
+
+# Gazebo version to install
+GZ_VERSION: harmonic
+
+# Which RMW DDS implementation to use
+RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
+
+
+# Default username and group for catkin_ws installation
+ros2_user:
+    name: ubuntu
+    group: ubuntu
+
+dev_ws: dev_ws
+
+ros2_domain_id: 0
+
+install_argcomplete: true
+
+ros_system_wide: true  # Enable system-wide configuration
+
+# List of ROS packages to be installed without ros-<distro> prefix
+ros2_packages:
+    - rmw-cyclonedds-cpp
+    - ros-gz
+    - turtlesim
+
