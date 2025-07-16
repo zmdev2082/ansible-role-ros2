@@ -15,12 +15,12 @@
     url: "https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest"
     method: GET
     return_content: yes
-    register: ros_apt_source_version
+  register: ros_apt_source_version
 
 - name: Download ROS2 APT source package
   get_url:
-  url: "{{ ros_apt_source_url }}/{{ ros_apt_source_version.stdout }}/ros2-apt-source_{{ ros_apt_source_version.stdout }}.{{ ansible_distribution_release }}_all.deb"
-  dest: "/tmp/ros2-apt-source.deb"
+    url: "{{ ros_apt_source_url }}/{{ ros_apt_source_version.stdout }}/ros2-apt-source_{{ ros_apt_source_version.stdout }}.{{ ansible_distribution_release }}_all.deb"
+    dest: "/tmp/ros2-apt-source.deb"
 
 - name: Install ROS2 APT source package
   apt:
