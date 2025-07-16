@@ -15,8 +15,8 @@ ros2_configuration: desktop
 GZ_VERSION: harmonic
 
 # Which RMW DDS implementation to use.
-# Options: rmw_cyclonedds_cpp (default); rmw_fastrtps_cpp
-RMW_IMPLEMENTATION: rmw_cyclonedds_cpp
+# Options: rmw-cyclonedds-cpp (default); rmw-fastrtps-cpp
+RMW_IMPLEMENTATION: rmw-cyclonedds-cpp
 
 
 # Default username and group for catkin_ws installation

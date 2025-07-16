@@ -4,7 +4,7 @@
     name: "ros-{{ ROS_DISTRO }}-{{ RMW_IMPLEMENTATION }}"
     state: present
   become: true
-  when: RMW_IMPLEMENTATION == 'rmw_cyclonedds_cpp'
+  when: RMW_IMPLEMENTATION == 'rmw-cyclonedds-cpp'
 
 - name: Create system-wide ROS2 environment setup
   copy:
@@ -14,6 +14,5 @@
       #!/bin/bash
 
       # Set DDS implementation
-      export RMW_IMPLEMENTATION={{ RMW_IMPLEMENTATION }}
-      
+        export RMW_IMPLEMENTATION={{ RMW_IMPLEMENTATION | replace('-', '_') }}
   become: true
