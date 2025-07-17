@@ -1,7 +1,7 @@
 ---
 # Main task
 
-- name: Install ROS2
+- name: ROS2 Base Install
   import_tasks: ros2-install.yml
   tags: [ros2, install]
 

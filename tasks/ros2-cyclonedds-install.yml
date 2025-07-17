@@ -14,5 +14,7 @@
       #!/bin/bash
 
       # Set DDS implementation
-        export RMW_IMPLEMENTATION={{ RMW_IMPLEMENTATION | replace('-', '_') }}
+      export RMW_IMPLEMENTATION={{ RMW_IMPLEMENTATION | replace('-', '_') }}
+      export ROS_DOMAIN_ID={{ ROS_DOMAIN_ID }} #TURTLEBOT3
+
   become: true

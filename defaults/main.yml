@@ -26,7 +26,7 @@ ros2_user:
 
 dev_ws: dev_ws
 
-ros2_domain_id: 0
+ROS_DOMAIN_ID: 30  # Default ROS_DOMAIN_ID for TurtleBot3
 
 install_argcomplete: true
 
@@ -36,4 +36,8 @@ ros_system_wide: true  # Enable system-wide configuration
 ros2_packages:
     - ros-gz
     - turtlesim
+    - cartographer
+    - cartographer-ros
+    - navigation2
+    - nav2-bringup
 
