@@ -40,4 +40,17 @@ ros2_packages:
     - cartographer-ros
     - navigation2
     - nav2-bringup
-
+    # - turtlebot3-msgs
+    # - turtlebot3
+    # - moveit
+    # - ur
+    # - cv-bridge
+    # - camera-calibration-parsers
+    # - image-transport
+    # - image-transport-plugins
+    # - tf*
+    # - perception*
+    # - open3d*
+    # - control*
+    # - navigation*
+    # - octomap*
