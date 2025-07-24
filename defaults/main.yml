@@ -40,8 +40,6 @@ ros2_packages:
     - cartographer-ros
     - navigation2
     - nav2-bringup
-    - teleop*  
-    - laser*
     - turtlebot3-msgs
     - turtlebot3
     - moveit
@@ -56,3 +54,5 @@ ros2_packages:
     - control*
     - navigation*
     - octomap*
+    - teleop*  
+    - laser*
