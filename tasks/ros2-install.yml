@@ -1,4 +1,17 @@
 ---
+- name: Get latest ROS APT source version
+  uri:
+    url: "{{ros_apt_source_api}}"
+    method: GET
+    return_content: yes
+  register: ros_apt_source_api_response
+  run_once: true
+  
+- name: Set ROS APT source version
+  set_fact:
+    ros_apt_source_version: "{{ ros_apt_source_api_response.json.tag_name }}"
+  run_once: true
+
 - name: Install dependencies for setting up sources
   apt:
     name: "{{ packages }}"
@@ -10,20 +23,6 @@
     - wget
     - software-properties-common
 
-- name: Get latest ROS APT source version
-  uri:
-    url: "{{ros_apt_source_api}}"
-    method: POST
-    headers:
-      Authorization: "Bearer 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"
-      X-GitHub-Api-Version: 2022-11-28
-    return_content: yes
-  register: ros_apt_source_api_response
-  
-- name: Set ROS APT source version
-  set_fact:
-    ros_apt_source_version: "{{ ros_apt_source_api_response.json.tag_name }}"
-
 - name: Debug URL components
   debug:
     msg:
@@ -31,7 +30,6 @@
       - "Version: {{ ros_apt_source_version }}"
       - "Distribution: {{ ansible_distribution_release }}"
       - "Full URL: {{ ros_apt_source_url }}/{{ ros_apt_source_version }}/ros2-apt-source_{{ ros_apt_source_version }}.{{ ansible_distribution_release }}_all.deb"
-
 
 - name: Download ROS2 APT source package
   get_url:
