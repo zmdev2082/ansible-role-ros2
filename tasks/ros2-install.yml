@@ -13,7 +13,10 @@
 - name: Get latest ROS APT source version
   uri:
     url: "{{ros_apt_source_api}}"
-    method: GET
+    method: POST
+    headers:
+      - Authorization: "Bearer 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"
+      - X-GitHub-Api-Version: 2022-11-28
     return_content: yes
   register: ros_apt_source_api_response
   
