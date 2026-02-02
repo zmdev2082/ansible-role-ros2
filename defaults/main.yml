@@ -71,6 +71,3 @@ ros2_packages_turtlebot:
     - tf*
     - teleop*
     - laser*
-
-# List of ROS packages to be installed - automatically selected based on device_type
-ros2_packages: "{{ ros2_packages_turtlebot if device_type == 'turtlebot' else ros2_packages_workstation }}"

@@ -1,4 +1,8 @@
 ---
+- name: Set ROS2 configuration based on device type
+  set_fact:
+    ros2_configuration: "{{ 'ros-base' if device_type == 'turtlebot' else 'desktop' }}"
+
 - name: Get latest ROS APT source version
   uri:
     url: "{{ros_apt_source_api}}"

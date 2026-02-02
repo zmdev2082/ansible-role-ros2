@@ -12,6 +12,10 @@
       - python3-colcon-common-extensions
       - ros-{{ ROS_DISTRO }}-rqt*
 
+- name: Set ROS2 packages list based on device type
+  set_fact:
+    ros2_packages: "{{ ros2_packages_turtlebot if device_type == 'turtlebot' else ros2_packages_workstation }}"
+
 - name: Install ROS2 Packages
   apt:
     name: "{{ packages }}"
@@ -21,4 +25,3 @@
   vars:
     packages: "{{ 'ros-' + ROS_DISTRO + '-' + item }}"
   with_items: "{{ ros2_packages }}"
-  when: (ros2_packages is defined) and (ros2_packages is not none)
