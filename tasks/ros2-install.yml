@@ -41,24 +41,13 @@
     deb: "/tmp/ros2-apt-source.deb"
   become: true
 
-- name: Update apt cache after adding ROS repository
-  apt:
-    update_cache: yes
-    cache_valid_time: 0
-  become: true
-
 # sudo apt install ros-<distro>-ros-base
 - name: "Install ROS 2 {{ ROS_DISTRO | capitalize }} ({{ ros2_configuration }})"
   apt:
-    name: "{{ packages }}"
+    name: "ros-{{ ROS_DISTRO }}-{{ ros2_configuration }}"
     state: present
     update_cache: yes
-    allow_downgrades: yes
-    allow_change_held_packages: yes
   become: true
-  vars:
-    packages:
-      - "{{ 'ros-' + ROS_DISTRO + '-' + ros2_configuration }}"
 
 
 
