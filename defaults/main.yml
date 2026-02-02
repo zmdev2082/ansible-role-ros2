@@ -1,6 +1,10 @@
 ---
 # defaults file for ros2
 
+# Device type: workstation or turtlebot
+# This determines the ROS2 configuration and packages to install
+device_type: workstation
+
 # Retrieved from ROS2 installation instructions
 ros_apt_source_api: https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest
 ros_apt_source_url: https://github.com/ros-infrastructure/ros-apt-source/releases/download
@@ -9,17 +13,17 @@ ros_apt_source_url: https://github.com/ros-infrastructure/ros-apt-source/release
 ROS_DISTRO: jazzy
 
 # Options: desktop (recommended); ros-base (bare bones)
-ros2_configuration: desktop
+# Automatically set based on device_type
+ros2_configuration: "{{ 'ros-base' if device_type == 'turtlebot' else 'desktop' }}"
 
-# Gazebo version to install
+# Gazebo version to install (workstation only)
 GZ_VERSION: harmonic
 
 # Which RMW DDS implementation to use.
 # Options: rmw-cyclonedds-cpp (default); rmw-fastrtps-cpp
 RMW_IMPLEMENTATION: rmw-cyclonedds-cpp
 
-
-# Default username and group for catkin_ws installation
+# Default username and group
 ros2_user:
     name: ubuntu
     group: ubuntu
@@ -32,8 +36,8 @@ install_argcomplete: true
 
 ros_system_wide: true  # Enable system-wide configuration
 
-# List of ROS packages to be installed without ros-<distro> prefix
-ros2_packages:
+# Workstation packages (full suite)
+ros2_packages_workstation:
     - ros-gz
     - turtlesim
     - cartographer
@@ -50,9 +54,23 @@ ros2_packages:
     - image-transport-plugins
     - tf*
     - perception*
-    # - open3d* (Does not exist)
     - control*
     - navigation*
     - octomap*
     - teleop*  
     - laser*
+
+# Turtlebot packages (minimal for Raspberry Pi)
+ros2_packages_turtlebot:
+    - turtlebot3-msgs
+    - turtlebot3
+    - navigation2
+    - nav2-bringup
+    - cv-bridge
+    - image-transport
+    - tf*
+    - teleop*
+    - laser*
+
+# List of ROS packages to be installed - automatically selected based on device_type
+ros2_packages: "{{ ros2_packages_turtlebot if device_type == 'turtlebot' else ros2_packages_workstation }}"

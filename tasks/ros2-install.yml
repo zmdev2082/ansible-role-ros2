@@ -42,11 +42,12 @@
   become: true
 
 # sudo apt install ros-<distro>-ros-base
-- name: Install ROS 2 {{ ROS_DISTRO | capitalize }} Desktop
+- name: "Install ROS 2 {{ ROS_DISTRO | capitalize }} ({{ ros2_configuration }})"
   apt:
     name: "{{ packages }}"
     state: present
     update_cache: yes
+  become: true
   vars:
     packages:
       - "{{ 'ros-' + ROS_DISTRO + '-' + ros2_configuration }}"
