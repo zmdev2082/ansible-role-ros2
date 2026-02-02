@@ -41,6 +41,19 @@
     deb: "/tmp/ros2-apt-source.deb"
   become: true
 
+- name: Update apt cache after adding ROS repository
+  apt:
+    update_cache: yes
+    cache_valid_time: 0
+  become: true
+
+- name: Upgrade all packages to resolve dependency conflicts
+  apt:
+    upgrade: dist
+    update_cache: yes
+  become: true
+  when: device_type == 'turtlebot'
+
 # sudo apt install ros-<distro>-ros-base
 - name: "Install ROS 2 {{ ROS_DISTRO | capitalize }} ({{ ros2_configuration }})"
   apt:
