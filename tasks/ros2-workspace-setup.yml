@@ -5,9 +5,11 @@
   args:
     creates: /etc/ros/rosdep/sources.list.d/20-default.list
 
+# Refreshes the user's rosdep cache every run; not a config change
 - name: Update rosdep
   shell: rosdep update
   become: false
+  changed_when: false
 
 - name: Create system-wide symlink to ROS2 environment
   file:
